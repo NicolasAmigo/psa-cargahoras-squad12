@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -38,6 +39,22 @@ public class CargaHorasApplication {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public Horas createHoras(@RequestBody Horas horas) {
 		return horasService.createHoras(horas);
+	}
+
+	@PostMapping("/horas/{id}")
+	public Horas updateHoras(@RequestParam Long id,@RequestBody Horas horas) {
+		if (Objects.equals(horas.getId(), id)) {
+			horasService.save(horas);
+			return horas;
+		}
+		else {
+			throw new RuntimeException("Not correct id");
+		}
+	}
+
+	@DeleteMapping("/horas/{id}")
+	public void deleteHoras(@PathVariable Long id) {
+		horasService.deleteById(id);
 	}
 
 }

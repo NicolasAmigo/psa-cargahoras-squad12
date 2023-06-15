@@ -29,6 +29,7 @@ public class HorasService {
 
     }
 
+
     public Collection<Horas> getHoras() {
         return horasRepository.findAll();
     }

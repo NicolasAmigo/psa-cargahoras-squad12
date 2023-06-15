@@ -11,7 +11,7 @@ public class Horas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long Id;
 
     private String recurso;
 
@@ -72,6 +72,14 @@ public class Horas {
 
     public void setHoras(Double horas) {
         this.horas = horas;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
 
