@@ -6,10 +6,7 @@ import com.squad12.cargaHoras.exceptions.TooManyHoursException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HorasService {
@@ -52,7 +49,9 @@ public class HorasService {
         ArrayList<Horas> horasRecurso = new ArrayList<Horas>();
 
         for (Horas x : horas) {
-            if (x.getRecurso().equals(recurso)) {
+            if (Objects.equals(x.getRecurso(), recurso)) {
+                System.out.println(x.getRecurso());
+                System.out.println(recurso);
                 horasRecurso.add(x);
             }
         }

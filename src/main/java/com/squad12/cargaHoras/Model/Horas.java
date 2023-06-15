@@ -35,7 +35,7 @@ public class Horas {
     }
 
     public String getRecurso() {
-        return recurso;
+        return this.recurso;
     }
 
     public void setRecurso(String recurso) {

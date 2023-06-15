@@ -29,10 +29,9 @@ public class CargaHorasApplication {
 		return horasService.getHoras();
 	}
 
-	@GetMapping("/horas/{id}")
-	public ResponseEntity<Horas> getHorasByRecurso(@PathVariable Long id) {
-		Optional<Horas> horasOptional = horasService.findById(id);
-		return ResponseEntity.of(horasOptional);
+	@GetMapping("/horas/recurso/{recurso}")
+	public Collection<Horas> getHorasByRecurso(@PathVariable String recurso) {
+		return horasService.getHorasByRecurso(recurso);
 	}
 
 	@PostMapping("/horas")
@@ -42,14 +41,9 @@ public class CargaHorasApplication {
 	}
 
 	@PostMapping("/horas/{id}")
-	public Horas updateHoras(@RequestParam Long id,@RequestBody Horas horas) {
-		if (Objects.equals(horas.getId(), id)) {
-			horasService.save(horas);
-			return horas;
-		}
-		else {
-			throw new RuntimeException("Not correct id");
-		}
+	public Horas updateHoras(@PathVariable Long id,@RequestBody Horas horas) {
+		horasService.save(horas);
+		return horas;
 	}
 
 	@DeleteMapping("/horas/{id}")
