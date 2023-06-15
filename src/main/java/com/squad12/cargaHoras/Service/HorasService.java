@@ -50,8 +50,6 @@ public class HorasService {
 
         for (Horas x : horas) {
             if (Objects.equals(x.getRecurso(), recurso)) {
-                System.out.println(x.getRecurso());
-                System.out.println(recurso);
                 horasRecurso.add(x);
             }
         }
