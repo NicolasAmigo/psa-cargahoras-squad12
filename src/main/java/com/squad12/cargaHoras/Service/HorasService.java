@@ -56,6 +56,18 @@ public class HorasService {
         return horasRecurso;
     }
 
+    public Collection<Horas> getHorasByProyecto(String proyecto) {
+        Collection<Horas> horas = horasRepository.findAll();
+        ArrayList<Horas> horasProyecto = new ArrayList<Horas>();
+
+        for (Horas x : horas) {
+            if (Objects.equals(x.getProyecto(), proyecto)) {
+                horasProyecto.add(x);
+            }
+        }
+        return horasProyecto;
+    }
+
     public void deleteById(Long id) {
         horasRepository.deleteById(id);
     }
