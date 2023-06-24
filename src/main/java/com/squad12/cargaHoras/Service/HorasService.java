@@ -5,13 +5,22 @@ import com.squad12.cargaHoras.Repository.HorasRepository;
 import com.squad12.cargaHoras.exceptions.TooManyHoursException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.*;
 
 @Service
 public class HorasService {
 
     private Double maxHoras = 10.0;
+    private String proyectosURL = "";
 
     @Autowired
     private HorasRepository horasRepository;
@@ -74,8 +83,26 @@ public class HorasService {
     }
 
 
-    private boolean asignacionEsValida(Horas horas) {
-        return horas.getHoras() < maxHoras;
+    private boolean asignacionEsValida(Horas horas) throws IOException {
+        boolean valido = true;
+        String endpoint = String.format("%s/projects/id", proyectosURL);
+        URL url = new URL(endpoint);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+            }
+        in.close();
+        con.disconnect();
+
+        valido = valido && horas.getHoras() < maxHoras;
+
+        return valido;
     }
 
     public Double getHorasByTarea(Long proyecto) {
