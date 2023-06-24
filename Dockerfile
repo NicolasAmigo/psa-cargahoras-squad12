@@ -9,4 +9,4 @@ ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 COPY --from=BUILD $APP_HOME .
 EXPOSE 8080
-ENTRYPOINT exec java -jar $APP_HOME/build/libs/recursos-0.0.1-SNAPSHOT.jar
+ENTRYPOINT exec java -jar $APP_HOME/build/libs/cargaHoras-0.0.1-SNAPSHOT.jar
