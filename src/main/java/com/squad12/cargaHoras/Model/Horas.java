@@ -13,9 +13,9 @@ public class Horas {
 
     private String recurso;
 
-    private String proyecto;
+    private Long proyectoId;
 
-    private String tarea;
+    private Long tareaId;
 
     private String fecha;
 
@@ -24,10 +24,10 @@ public class Horas {
 
     public Horas() {}
 
-    public Horas(String recurso, String proyecto, String tarea, String fecha, Double horas) {
+    public Horas(String recurso, Long proyecto, Long tarea, String fecha, Double horas) {
         this.recurso = recurso;
-        this.proyecto = proyecto;
-        this.tarea = tarea;
+        this.proyectoId = proyecto;
+        this.tareaId = tarea;
         this.fecha = fecha;
         this.horas = horas;
     }
@@ -40,20 +40,20 @@ public class Horas {
         this.recurso = recurso;
     }
 
-    public String getProyecto() {
-        return proyecto;
+    public Long getProyecto() {
+        return proyectoId;
     }
 
-    public void setProyecto(String proyecto) {
-        this.proyecto = proyecto;
+    public void setProyecto(Long proyecto) {
+        this.proyectoId = proyecto;
     }
 
-    public String getTarea() {
-        return tarea;
+    public Long getTarea() {
+        return tareaId;
     }
 
-    public void setTarea(String tarea) {
-        this.tarea = tarea;
+    public void setTarea(Long tarea) {
+        this.tareaId = tarea;
     }
 
     public String getFecha() {

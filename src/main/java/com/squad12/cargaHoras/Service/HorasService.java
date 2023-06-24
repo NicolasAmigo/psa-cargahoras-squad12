@@ -56,16 +56,17 @@ public class HorasService {
         return horasRecurso;
     }
 
-    public Collection<Horas> getHorasByProyecto(String proyecto) {
+    public Double getHorasByProyecto(Long proyecto) {
         Collection<Horas> horas = horasRepository.findAll();
-        ArrayList<Horas> horasProyecto = new ArrayList<Horas>();
 
+        Double total;
+        total = 0.0;
         for (Horas x : horas) {
             if (Objects.equals(x.getProyecto(), proyecto)) {
-                horasProyecto.add(x);
+                total += x.getHoras();
             }
         }
-        return horasProyecto;
+        return total;
     }
 
     public void deleteById(Long id) {
@@ -75,5 +76,18 @@ public class HorasService {
 
     private boolean asignacionEsValida(Horas horas) {
         return horas.getHoras() < maxHoras;
+    }
+
+    public Double getHorasByTarea(Long proyecto) {
+        Collection<Horas> horas = horasRepository.findAll();
+
+        Double total;
+        total = 0.0;
+        for (Horas x : horas) {
+            if (Objects.equals(x.getTarea(), proyecto)) {
+                total += x.getHoras();
+            }
+        }
+        return total;
     }
 }

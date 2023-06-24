@@ -35,8 +35,13 @@ public class CargaHorasApplication {
 	}
 
     @GetMapping("/horas/proyecto/{proyecto}")
-    public Collection<Horas> getHorasByProyecto(@PathVariable String proyecto) {
+    public Double getHorasByProyecto(@PathVariable Long proyecto) {
         return horasService.getHorasByProyecto(proyecto);
+    }
+
+    @GetMapping("/horas/tarea/{tarea}")
+    public Double getHorasByTarea(@PathVariable Long tarea) {
+        return horasService.getHorasByTarea(tarea);
     }
 
 	@PostMapping("/horas")
