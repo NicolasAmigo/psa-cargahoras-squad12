@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @SpringBootApplication
 @RestController
 public class CargaHorasApplication {

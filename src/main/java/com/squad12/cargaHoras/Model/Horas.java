@@ -11,7 +11,7 @@ public class Horas {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    private String recurso;
+    private Long recursoId;
 
     private Long proyectoId;
 
@@ -24,20 +24,20 @@ public class Horas {
 
     public Horas() {}
 
-    public Horas(String recurso, Long proyecto, Long tarea, String fecha, Double horas) {
-        this.recurso = recurso;
+    public Horas(Long recurso, Long proyecto, Long tarea, String fecha, Double horas) {
+        this.recursoId = recurso;
         this.proyectoId = proyecto;
         this.tareaId = tarea;
         this.fecha = fecha;
         this.horas = horas;
     }
 
-    public String getRecurso() {
-        return this.recurso;
+    public Long getRecurso() {
+        return this.recursoId;
     }
 
-    public void setRecurso(String recurso) {
-        this.recurso = recurso;
+    public void setRecurso(Long recurso) {
+        this.recursoId = recurso;
     }
 
     public Long getProyecto() {

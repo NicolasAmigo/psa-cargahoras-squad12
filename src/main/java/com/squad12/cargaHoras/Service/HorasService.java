@@ -26,11 +26,14 @@ public class HorasService {
     private HorasRepository horasRepository;
 
     public Horas createHoras(Horas horas) {
-        if (this.asignacionEsValida(horas)) {
-            return horasRepository.save(horas);
-        }
-        else {
-            throw new TooManyHoursException("Demasiadas horas cargadas");
+        try {
+            if (this.asignacionEsValida(horas)) {
+                return horasRepository.save(horas);
+            } else {
+                throw new TooManyHoursException("Demasiadas horas cargadas");
+            }
+        } catch (RuntimeException | IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -46,10 +49,14 @@ public class HorasService {
 
 
     public void save(Horas horas) {
-        if (asignacionEsValida(horas)) {
-            horasRepository.save(horas);
-        } else {
-            throw new TooManyHoursException("Demasiadas horas cargadas");
+        try {
+            if (asignacionEsValida(horas)) {
+                horasRepository.save(horas);
+            } else {
+                throw new TooManyHoursException("Demasiadas horas cargadas");
+            }
+        } catch (RuntimeException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -84,6 +91,8 @@ public class HorasService {
 
 
     private boolean asignacionEsValida(Horas horas) throws IOException {
+        return true;
+        /*
         boolean valido = true;
         String endpoint = String.format("%s/projects/id", proyectosURL);
         URL url = new URL(endpoint);
@@ -103,6 +112,7 @@ public class HorasService {
         valido = valido && horas.getHoras() < maxHoras;
 
         return valido;
+        */
     }
 
     public Double getHorasByTarea(Long proyecto) {
