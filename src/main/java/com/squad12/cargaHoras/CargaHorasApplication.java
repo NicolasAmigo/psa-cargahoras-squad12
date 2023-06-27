@@ -1,7 +1,9 @@
 package com.squad12.cargaHoras;
 
 import com.squad12.cargaHoras.Model.Horas;
+import com.squad12.cargaHoras.Model.ProyectoSimple;
 import com.squad12.cargaHoras.Service.HorasService;
+import com.squad12.cargaHoras.Service.ProyectosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,6 +20,9 @@ public class CargaHorasApplication {
 	@Autowired
 	private HorasService horasService;
 
+	@Autowired
+	private ProyectosService proyectosService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CargaHorasApplication.class, args);
 	}
@@ -28,8 +33,13 @@ public class CargaHorasApplication {
 	}
 
 	@GetMapping("/horas/recurso/{recurso}")
-	public Collection<Horas> getHorasByRecurso(@PathVariable String recurso) {
+	public Collection<Horas> getHorasByRecurso(@PathVariable Long recurso) {
 		return horasService.getHorasByRecurso(recurso);
+	}
+
+	@GetMapping("/proyectos/recurso/{recurso}")
+	public Collection<ProyectoSimple> getProyectosByRecurso(@PathVariable Long recurso) {
+		return proyectosService.getProyectoByRecurso(recurso);
 	}
 
     @GetMapping("/horas/proyecto/{proyecto}")
