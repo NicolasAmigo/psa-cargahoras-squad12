@@ -50,6 +50,7 @@ public class CargaHorasApplication {
 
 	@PostMapping("/horas/{id}")
 	public Horas updateHoras(@PathVariable Long id,@RequestBody Horas horas) {
+		horas.setId(id);
 		horasService.save(horas);
 		return horas;
 	}
