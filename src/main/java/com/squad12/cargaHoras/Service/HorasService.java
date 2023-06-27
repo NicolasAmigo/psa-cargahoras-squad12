@@ -1,10 +1,14 @@
 package com.squad12.cargaHoras.Service;
 
 import com.squad12.cargaHoras.Model.Horas;
+import com.squad12.cargaHoras.Model.Tarea;
 import com.squad12.cargaHoras.Repository.HorasRepository;
 import com.squad12.cargaHoras.exceptions.TooManyHoursException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -12,21 +16,20 @@ import java.util.*;
 public class HorasService {
 
     private Double maxHoras = 10.0;
-    private String proyectosURL = "";
+    private String proyectosURL = "https://aninfo-backend-proyectos-pr-13.onrender.com";
 
     @Autowired
     private HorasRepository horasRepository;
+    RestTemplate restTemplate = new RestTemplate();
 
     public Horas createHoras(Horas horas) {
-        try {
-            if (this.asignacionEsValida(horas)) {
-                return horasRepository.save(horas);
-            } else {
-                throw new TooManyHoursException("Demasiadas horas cargadas");
-            }
-        } catch (RuntimeException | IOException e) {
-            throw new RuntimeException(e);
+
+        if (this.asignacionEsValida(horas)) {
+            return horasRepository.save(horas);
+        } else {
+            throw new TooManyHoursException("Demasiadas horas cargadas");
         }
+
 
     }
 
@@ -41,15 +44,13 @@ public class HorasService {
 
 
     public void save(Horas horas) {
-        try {
-            if (asignacionEsValida(horas)) {
-                horasRepository.save(horas);
-            } else {
-                throw new TooManyHoursException("Demasiadas horas cargadas");
-            }
-        } catch (RuntimeException | IOException e) {
-            throw new RuntimeException(e);
+
+        if (asignacionEsValida(horas)) {
+            horasRepository.save(horas);
+        } else {
+            throw new TooManyHoursException("Demasiadas horas cargadas");
         }
+
     }
 
     public Collection<Horas> getHorasByRecurso(Long recurso) {
@@ -82,29 +83,28 @@ public class HorasService {
     }
 
 
-    private boolean asignacionEsValida(Horas horas) throws IOException {
+    private boolean asignacionEsValida(Horas horas) {
         return true;
         /*
-        boolean valido = true;
-        String endpoint = String.format("%s/projects/id", proyectosURL);
-        URL url = new URL(endpoint);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        int status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-            }
-        in.close();
-        con.disconnect();
+        ResponseEntity<Tarea> responseTarea = restTemplate.getForEntity(
+                proyectosURL + "/tasks/" + horas.getTarea(),
+                Tarea.class
+        );
+        if (responseTarea.getBody() == null) {
+            return false;
+        }
+        Tarea t = responseTarea.getBody();
 
-        valido = valido && horas.getHoras() < maxHoras;
+        if (!Objects.equals(t.resourceId, horas.getRecurso())) {
+            return false;
+        }
+        if (!Objects.equals(t.projectId, horas.getProyecto())) {
+            return false;
+        }
 
-        return valido;
+        return horas.getHoras() <= maxHoras;
         */
+
     }
 
     public Double getHorasByTarea(Long proyecto) {
