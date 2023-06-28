@@ -5,7 +5,6 @@ import com.squad12.cargaHoras.Model.Tarea;
 import com.squad12.cargaHoras.Repository.HorasRepository;
 import com.squad12.cargaHoras.exceptions.TooManyHoursException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
