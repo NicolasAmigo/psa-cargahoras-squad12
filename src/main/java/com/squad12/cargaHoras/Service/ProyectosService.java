@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class ProyectosService {
 
-    String proyectosURL = "https://aninfo-backend-proyectos-pr-13.onrender.com";
+    String proyectosURL = "https://aninfo-backend-proyectos.onrender.com";
 
     RestTemplate restTemplate = new RestTemplate();
     public Collection<ProyectoSimple> getProyectoByRecurso(Long recurso) {

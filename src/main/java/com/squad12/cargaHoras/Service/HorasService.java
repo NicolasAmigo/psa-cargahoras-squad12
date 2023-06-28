@@ -16,7 +16,7 @@ import java.util.*;
 public class HorasService {
 
     private Double maxHoras = 10.0;
-    private String proyectosURL = "https://aninfo-backend-proyectos-pr-13.onrender.com";
+    private String proyectosURL = "https://aninfo-backend-proyectos.onrender.com";
 
     @Autowired
     private HorasRepository horasRepository;
