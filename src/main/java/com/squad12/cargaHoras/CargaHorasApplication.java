@@ -42,6 +42,11 @@ public class CargaHorasApplication {
 		return proyectosService.getProyectoByRecurso(recurso);
 	}
 
+	@GetMapping("/proyectos")
+	public Collection<ProyectoSimple> getProyectos() {
+		return proyectosService.getProyectos();
+	}
+
     @GetMapping("/horas/proyecto/{proyecto}")
     public Double getHorasByProyecto(@PathVariable Long proyecto) {
         return horasService.getHorasByProyecto(proyecto);
